@@ -71,7 +71,7 @@ var createTrendAndSave = function(trendCount, currentTime, trend, doneCallback) 
     trend.id = trendModel.attributes.id;
 
     // create any necessary joins before passing to calculateRank
-    createJoinTableAssociations(trend, trendModel);
+    createJoinTableAssociations(trendCount, currentTime, trend, trendModel, doneCallback);
   });
 };
 
@@ -85,7 +85,7 @@ var checkForUpdates = function(trendCount, currentTime, trend, doneCallback) {
     .then( function(trendModel) {
 
       // create any necessary joins before passing to calculateRank
-      createJoinTableAssociations(trend, trendModel);
+      createJoinTableAssociations(trendCount, currentTime, trend, trendModel, doneCallback);
     });
 
   //  otherwise just pass to calculateRank directly
@@ -95,7 +95,7 @@ var checkForUpdates = function(trendCount, currentTime, trend, doneCallback) {
 };
 
 // helper method for createTrendAndSave and checkForUpdates
-var createJoinTableAssociations = function(trend, trendModel) {
+var createJoinTableAssociations = function(trendCount, currentTime, trend, trendModel, doneCallback) {
 
   async.each(trend.article_ids,
 
